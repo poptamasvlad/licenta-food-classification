@@ -1,0 +1,44 @@
+# Build outputs
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / IDE
+.idea/
+.vscode/
+
+# NuGet
+packages/
+*.nupkg
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local secrets / config
+secrets.json
+appsettings.Development.json
+
+# Databases / local data
+*.db
+*.sqlite
+
+# Mobile artifacts (MAUI)
+*.apk
+*.aab
+*.ipa
+*.dSYM/
+*.app/
+
+# Generated/test artifacts
+.vscode-test/
+*.vsix
