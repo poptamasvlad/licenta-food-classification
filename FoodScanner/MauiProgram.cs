@@ -1,32 +1,36 @@
 ﻿using Microsoft.Extensions.Logging;
 using ZXing.Net.Maui.Controls;
+using FoodScanner.Services;
 
-public static class MauiProgram
+namespace FoodScanner
 {
-    public static MauiApp CreateMauiApp()
+    public static class MauiProgram
     {
-        var builder = MauiApp.CreateBuilder();
-        builder
-            .UseMauiApp<App>()
-            .UseBarcodeReader()
-            .ConfigureFonts(fonts =>
-            {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-            });
+        public static MauiApp CreateMauiApp()
+        {
+            var builder = MauiApp.CreateBuilder();
+            builder
+                .UseMauiApp<App>()
+                .UseBarcodeReader()
+                .ConfigureFonts(fonts =>
+                {
+                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                });
 
-        builder.Services.AddSingleton<FoodApiService>();
-        builder.Services.AddSingleton<DatabaseService>();
-        builder.Services.AddSingleton<NutritionClassifier>();
+            builder.Services.AddSingleton<FoodApiService>();
+            //builder.Services.AddSingleton<DatabaseService>();
+            //builder.Services.AddSingleton<NutritionClassifier>();
 
-        builder.Services.AddTransient<ScannerViewModel>();
-        builder.Services.AddTransient<ResultViewModel>();
-        builder.Services.AddTransient<HistoryViewModel>();
+            //builder.Services.AddTransient<ScannerViewModel>();
+            //builder.Services.AddTransient<ResultViewModel>();
+            //builder.Services.AddTransient<HistoryViewModel>();
 
-#if DEBUG
-        builder.Logging.AddDebug();
-#endif
+    #if DEBUG
+            builder.Logging.AddDebug();
+    #endif
 
-        return builder.Build();
+            return builder.Build();
+        }
     }
 }
