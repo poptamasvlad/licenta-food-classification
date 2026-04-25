@@ -1,12 +1,16 @@
-﻿namespace FoodScanner
-{
-    public partial class App : Application
-    {
-        public App()
-        {
-            InitializeComponent();
+﻿using FoodScanner.Views;
 
-            MainPage = new AppShell();
-        }
+namespace FoodScanner;
+
+public partial class App : Application
+{
+    public App(ScannerPage scannerPage)
+    {
+        InitializeComponent();
+        MainPage = new NavigationPage(scannerPage)
+        {
+            BarBackgroundColor = Colors.White,
+            BarTextColor = Color.FromArgb("#333333")
+        };
     }
 }

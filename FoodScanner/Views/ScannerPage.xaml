@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.Maui.Controls"
+    x:Class="FoodScanner.Views.ScannerPage"
+    Title="Scanează"
+    BackgroundColor="#F5F5F5">
+
+    <Grid RowDefinitions="*, Auto">
+
+        <!-- Camera View -->
+        <zxing:CameraBarcodeReaderView
+            x:Name="BarcodeReader"
+            Grid.Row="0"
+            BarcodesDetected="OnBarcodesDetected"
+            IsDetecting="True" />
+
+        <!-- Overlay pe cameră -->
+        <Grid Grid.Row="0">
+
+            <!-- Cadru de scanare -->
+            <Frame
+                WidthRequest="250"
+                HeightRequest="150"
+                CornerRadius="12"
+                BorderColor="White"
+                BackgroundColor="Transparent"
+                HorizontalOptions="Center"
+                VerticalOptions="Center" />
+
+            <!-- Linie de scanare animată -->
+            <BoxView
+                x:Name="ScanLine"
+                Color="Red"
+                HeightRequest="2"
+                WidthRequest="230"
+                HorizontalOptions="Center"
+                VerticalOptions="Center" />
+
+            <!-- Status message -->
+            <Label
+                Text="{Binding StatusMessage}"
+                TextColor="White"
+                FontSize="14"
+                HorizontalOptions="Center"
+                VerticalOptions="End"
+                Margin="0,0,0,20"
+                BackgroundColor="#80000000"
+                Padding="12,6" />
+
+            <!-- Loading indicator -->
+            <ActivityIndicator
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                Color="White"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Scale="1.5" />
+        </Grid>
+
+        <!-- Bara de jos cu butoane -->
+        <Grid
+            Grid.Row="1"
+            BackgroundColor="White"
+            Padding="20,16"
+            ColumnDefinitions="*, Auto, *">
+
+            <!-- Buton Istoric -->
+            <Button
+                Grid.Column="0"
+                Text="Istoric"
+                BackgroundColor="#F0F0F0"
+                TextColor="#333333"
+                CornerRadius="12"
+                HeightRequest="48"
+                Clicked="OnHistoryClicked" />
+
+            <!-- Buton Torță -->
+            <Button
+                Grid.Column="1"
+                x:Name="TorchButton"
+                Text="Torta OFF"
+                BackgroundColor="#333333"
+                TextColor="White"
+                CornerRadius="12"
+                HeightRequest="48"
+                WidthRequest="100"
+                Margin="12,0"
+                Clicked="OnTorchClicked" />
+
+            <!-- Placeholder -->
+            <BoxView
+                Grid.Column="2"
+                Color="Transparent" />
+        </Grid>
+
+    </Grid>
+</ContentPage>
