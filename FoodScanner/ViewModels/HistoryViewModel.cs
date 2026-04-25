@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FoodScanner.Models;
+using FoodScanner.Services;
 
 namespace FoodScanner.ViewModels
 {

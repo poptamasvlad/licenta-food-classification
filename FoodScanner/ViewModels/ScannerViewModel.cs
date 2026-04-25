@@ -12,7 +12,7 @@ namespace FoodScanner.ViewModels
     {
         private readonly FoodApiService _apiService;
         private readonly DatabaseService _databaseService;
-        private readonly NutritionClassifier _classifier;
+        //private readonly NutritionClassifier _classifier;
 
         private bool _isTorchOn;
         public bool IsTorchOn
@@ -29,12 +29,12 @@ namespace FoodScanner.ViewModels
         }
 
         public ScannerViewModel(FoodApiService apiService,
-            DatabaseService databaseService,
-            NutritionClassifier classifier)
+            DatabaseService databaseService)
+            //NutritionClassifier classifier)
         {
             _apiService = apiService;
             _databaseService = databaseService;
-            _classifier = classifier;
+            //_classifier = classifier;
             Title = "Scanează produs";
             StatusMessage = "Îndreaptă camera spre codul de bare";
         }
@@ -56,9 +56,9 @@ namespace FoodScanner.ViewModels
                     return null;
                 }
 
-                var classification = _classifier.Classify(product);
-                product.HealthLabel = classification.Label;
-                product.HealthScore = classification.Score;
+                //var classification = _classifier.Classify(product);
+                //product.HealthLabel = classification.Label;
+                //product.HealthScore = classification.Score;
 
                 await _databaseService.SaveScanAsync(product);
 

@@ -1,4 +1,5 @@
 ﻿using FoodScanner.Services;
+using FoodScanner.Models;
 
 namespace FoodScanner
 {

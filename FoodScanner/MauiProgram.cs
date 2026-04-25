@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using ZXing.Net.Maui.Controls;
 using FoodScanner.Services;
+using FoodScanner.ViewModels;
+using FoodScanner.Helpers;
 
 namespace FoodScanner
 {
@@ -19,14 +21,17 @@ namespace FoodScanner
                 });
 
             builder.Services.AddSingleton<FoodApiService>();
-            //builder.Services.AddSingleton<DatabaseService>();
+            builder.Services.AddSingleton<DatabaseService>();
             //builder.Services.AddSingleton<NutritionClassifier>();
 
-            //builder.Services.AddTransient<ScannerViewModel>();
-            //builder.Services.AddTransient<ResultViewModel>();
-            //builder.Services.AddTransient<HistoryViewModel>();
+            builder.Services.AddTransient<ScannerViewModel>();
+            builder.Services.AddTransient<ResultViewModel>();
+            builder.Services.AddTransient<HistoryViewModel>();
 
-    #if DEBUG
+            builder.Services.AddSingleton<DatabaseHelper>();
+
+
+#if DEBUG
             builder.Logging.AddDebug();
     #endif
 
