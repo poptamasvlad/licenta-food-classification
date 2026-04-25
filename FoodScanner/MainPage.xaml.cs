@@ -1,4 +1,7 @@
-﻿using FoodScanner.Services;
+﻿using System.Threading.Tasks;
+using System.Diagnostics;
+using Microsoft.Maui.ApplicationModel;
+using FoodScanner.Services;
 using FoodScanner.Models;
 
 namespace FoodScanner
@@ -6,8 +9,6 @@ namespace FoodScanner
     public partial class MainPage : ContentPage
     {
         int count = 0;
-
-
 
         public MainPage()
         {

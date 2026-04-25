@@ -22,7 +22,7 @@ namespace FoodScanner
 
             builder.Services.AddSingleton<FoodApiService>();
             builder.Services.AddSingleton<DatabaseService>();
-            //builder.Services.AddSingleton<NutritionClassifier>();
+            builder.Services.AddSingleton<NutritionClassifier>();
 
             builder.Services.AddTransient<ScannerViewModel>();
             builder.Services.AddTransient<ResultViewModel>();

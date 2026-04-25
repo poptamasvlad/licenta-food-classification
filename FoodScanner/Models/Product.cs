@@ -17,6 +17,7 @@ namespace FoodScanner.Models
         public string HealthLabel { get; set; }
         public int HealthScore { get; set; }
         public NutritionalInfo Nutrition { get; set; }
+        public ClassificationResult Classification { get; set; }
 
         public bool IsHealthy => HealthScore >= 60;
     }
