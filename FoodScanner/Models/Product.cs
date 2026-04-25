@@ -13,7 +13,11 @@ namespace FoodScanner.Models
         public string Brand { get; set; }
         public string ImageUrl { get; set; }
         public string NutriScore { get; set; }
-        public NutritionalInfo Nutrition { get; set; }
         public string Category { get; set; }
+        public string HealthLabel { get; set; }
+        public int HealthScore { get; set; }
+        public NutritionalInfo Nutrition { get; set; }
+
+        public bool IsHealthy => HealthScore >= 60;
     }
 }
