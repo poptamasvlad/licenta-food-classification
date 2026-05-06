@@ -39,36 +39,42 @@ namespace FoodScanner.ViewModels
             StatusMessage = "Îndreaptă camera spre codul de bare";
         }
 
-        public async Task<Product> ProcessBarcodeAsync(string barcode)
+        public async Task<(Product product, bool notFound)>
+    ProcessBarcodeAsync(string barcode)
         {
-            if (IsBusy) return null;
+            if (IsBusy) return (null, false);
 
             try
             {
                 IsBusy = true;
                 StatusMessage = "Se cauta produsul...";
 
-                var product = await _apiService.GetProductByBarcodeAsync(barcode);
+                var (product, isManual) = await _apiService
+                    .GetProductByBarcodeAsync(barcode);
 
                 if (product == null)
                 {
                     StatusMessage = "Produs negasit in baza de date";
-                    return null;
+                    return (null, true);
                 }
 
                 var classification = _classifier.Classify(product);
                 product.HealthLabel = classification.Label;
                 product.HealthScore = classification.Score;
+                product.Classification = classification;
 
                 await _databaseService.SaveScanAsync(product);
 
-                StatusMessage = "Produs gasit!";
-                return product;
+                StatusMessage = isManual
+                    ? "Produs gasit din baza ta de date!"
+                    : "Produs gasit!";
+
+                return (product, false);
             }
             catch (Exception ex)
             {
                 StatusMessage = $"Eroare: {ex.Message}";
-                return null;
+                return (null, false);
             }
             finally
             {

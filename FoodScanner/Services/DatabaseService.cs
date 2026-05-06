@@ -25,7 +25,45 @@ namespace FoodScanner.Services
             _database = new SQLiteAsyncConnection(dbPath);
             await _database.CreateTableAsync<ScanResult>();
 
+            // Adaugi tabelul pentru produse manuale
+            await _database.CreateTableAsync<ManualProduct>();
+
             _isInitialized = true;
+        }
+
+        // Adaugi metodele noi la sfârșitul clasei
+        public async Task<int> SaveManualProductAsync(ManualProduct product)
+        {
+            await InitializeAsync();
+            product.AddedAt = DateTime.Now;
+
+            var existing = await _database.Table<ManualProduct>()
+                .Where(p => p.Barcode == product.Barcode)
+                .FirstOrDefaultAsync();
+
+            if (existing != null)
+            {
+                product.Id = existing.Id;
+                return await _database.UpdateAsync(product);
+            }
+
+            return await _database.InsertAsync(product);
+        }
+
+        public async Task<ManualProduct> GetManualProductAsync(string barcode)
+        {
+            await InitializeAsync();
+            return await _database.Table<ManualProduct>()
+                .Where(p => p.Barcode == barcode)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<List<ManualProduct>> GetAllManualProductsAsync()
+        {
+            await InitializeAsync();
+            return await _database.Table<ManualProduct>()
+                .OrderByDescending(p => p.AddedAt)
+                .ToListAsync();
         }
 
         public async Task<int> SaveScanAsync(Product product)

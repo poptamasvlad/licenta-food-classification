@@ -50,6 +50,9 @@
 		<MauiXaml Update="Views\HistoryPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\ManualEntryPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\ResultPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

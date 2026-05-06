@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="FoodScanner.Views.ManualEntryPage"
+    Title="Adauga produs"
+    BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="12" Padding="16">
+
+            <!-- Info cod de bare -->
+            <Frame BackgroundColor="#EEF4FF" CornerRadius="12" Padding="14">
+                <VerticalStackLayout Spacing="2">
+                    <Label
+                        Text="Cod de bare scanat"
+                        FontSize="12"
+                        TextColor="#888888" />
+                    <Label
+                        Text="{Binding Barcode}"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="#333333" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Informatii generale -->
+            <Frame BackgroundColor="White" CornerRadius="16" Padding="16">
+                <VerticalStackLayout Spacing="12">
+
+                    <Label
+                        Text="Informatii produs"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="#1A1A1A" />
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Nume produs *"
+                               FontSize="13" TextColor="#555" />
+                        <Entry
+                            Text="{Binding Name}"
+                            Placeholder="ex: Lapte semidegresat"
+                            BackgroundColor="#F8F8F8" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Brand"
+                               FontSize="13" TextColor="#555" />
+                        <Entry
+                            Text="{Binding Brand}"
+                            Placeholder="ex: Zuzu"
+                            BackgroundColor="#F8F8F8" />
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Valori nutritionale -->
+            <Frame BackgroundColor="White" CornerRadius="16" Padding="16">
+                <VerticalStackLayout Spacing="12">
+
+                    <Label
+                        Text="Valori nutritionale / 100g"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="#1A1A1A" />
+
+                    <Label
+                        Text="Gasesti aceste valori pe spatele ambalajului"
+                        FontSize="12"
+                        TextColor="#888888" />
+
+                    <Grid ColumnDefinitions="*, *" RowDefinitions="Auto, Auto, Auto, Auto" ColumnSpacing="12" RowSpacing="12">
+
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="0" Spacing="4">
+                            <Label Text="Calorii (kcal) *" FontSize="13" TextColor="#555" />
+                            <Entry Text="{Binding Calories}" Placeholder="0" Keyboard="Numeric" BackgroundColor="#F8F8F8" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="1" Spacing="4">
+                            <Label Text="Grasimi (g) *" FontSize="13" TextColor="#555" />
+                            <Entry Text="{Binding Fat}" Placeholder="0" Keyboard="Numeric" BackgroundColor="#F8F8F8" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="0" Spacing="4">
+                            <Label Text="Grasimi saturate (g)" FontSize="13" TextColor="#555" />
+                            <Entry Text="{Binding SaturatedFat}" Placeholder="0" Keyboard="Numeric" BackgroundColor="#F8F8F8" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="4">
+                            <Label Text="Zaharuri (g) *" FontSize="13" TextColor="#555" />
+                            <Entry Text="{Binding Sugar}" Placeholder="0" Keyboard="Numeric" BackgroundColor="#F8F8F8" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="0" Spacing="4">
+                            <Label Text="Sare (g) *" FontSize="13" TextColor="#555" />
+                            <Entry Text="{Binding Salt}" Placeholder="0" Keyboard="Numeric" BackgroundColor="#F8F8F8" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="1" Spacing="4">
+                            <Label Text="Proteine (g)" FontSize="13" TextColor="#555" />
+                            <Entry Text="{Binding Protein}" Placeholder="0" Keyboard="Numeric" BackgroundColor="#F8F8F8" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="3" Grid.Column="0" Spacing="4">
+                            <Label Text="Fibre (g)" FontSize="13" TextColor="#555" />
+                            <Entry Text="{Binding Fiber}" Placeholder="0" Keyboard="Numeric" BackgroundColor="#F8F8F8" />
+                        </VerticalStackLayout>
+
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Buton salvare -->
+            <Button
+                Text="Salveaza si vezi rezultatul"
+                BackgroundColor="#333333"
+                TextColor="White"
+                CornerRadius="12"
+                HeightRequest="52"
+                Margin="0,8,0,4"
+                Clicked="OnSaveClicked" />
+
+            <Button
+                Text="Anuleaza"
+                BackgroundColor="Transparent"
+                TextColor="#888888"
+                CornerRadius="12"
+                HeightRequest="44"
+                Margin="0,0,0,16"
+                Clicked="OnCancelClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

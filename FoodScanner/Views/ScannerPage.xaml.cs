@@ -78,7 +78,8 @@ public partial class ScannerPage : ContentPage
                 "Aplicatia are nevoie de acces la camera.", "OK");
     }
 
-    private async void OnBarcodesDetected(object sender, BarcodeDetectionEventArgs e)
+    private async void OnBarcodesDetected(
+    object sender, BarcodeDetectionEventArgs e)
     {
         if (_isProcessing) return;
         _isProcessing = true;
@@ -95,7 +96,8 @@ public partial class ScannerPage : ContentPage
 
         await MainThread.InvokeOnMainThreadAsync(async () =>
         {
-            var product = await _viewModel.ProcessBarcodeAsync(barcode);
+            var (product, notFound) =
+                await _viewModel.ProcessBarcodeAsync(barcode);
 
             if (product != null)
             {
@@ -107,11 +109,38 @@ public partial class ScannerPage : ContentPage
                     )
                 );
             }
+            else if (notFound)
+            {
+                // Produsul nu exista — oferi optiunea de introducere manuala
+                bool addManually = await DisplayAlert(
+                    "Produs negasit",
+                    "Acest produs nu exista in baza de date. " +
+                    "Vrei sa introduci manual valorile nutritionale?",
+                    "Da, adaug manual",
+                    "Anuleaza"
+                );
+
+                if (addManually)
+                {
+                    await Navigation.PushAsync(
+                        new ManualEntryPage(
+                            Handler.MauiContext.Services
+                                .GetService<ManualEntryViewModel>(),
+                            barcode
+                        )
+                    );
+                }
+                else
+                {
+                    if (_barcodeReader != null)
+                        _barcodeReader.IsDetecting = true;
+                    _isProcessing = false;
+                }
+            }
             else
             {
-                await DisplayAlert("Produs negasit",
-                    "Codul de bare nu a fost gasit in baza de date.",
-                    "OK");
+                await DisplayAlert("Eroare",
+                    "A aparut o eroare. Incearca din nou.", "OK");
 
                 if (_barcodeReader != null)
                     _barcodeReader.IsDetecting = true;

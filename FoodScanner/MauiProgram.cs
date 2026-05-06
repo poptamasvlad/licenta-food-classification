@@ -29,10 +29,12 @@ namespace FoodScanner
             builder.Services.AddTransient<ScannerViewModel>();
             builder.Services.AddTransient<ResultViewModel>();
             builder.Services.AddTransient<HistoryViewModel>();
+            builder.Services.AddTransient<ManualEntryViewModel>();
 
             builder.Services.AddTransient<ScannerPage>();
             builder.Services.AddTransient<ResultPage>();
             builder.Services.AddTransient<HistoryPage>();
+            builder.Services.AddTransient<ManualEntryPage>();
 
             return builder.Build();
         }

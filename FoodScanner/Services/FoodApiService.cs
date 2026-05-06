@@ -9,10 +9,13 @@ namespace FoodScanner.Services
     public class FoodApiService
     {
         private readonly HttpClient _httpClient;
-        private const string BaseUrl = "https://world.openfoodfacts.org/api/v2/product/";
+        private readonly DatabaseService _databaseService;
+        private const string BaseUrl =
+            "https://world.openfoodfacts.org/api/v2/product/";
 
-        public FoodApiService()
+        public FoodApiService(DatabaseService databaseService)
         {
+            _databaseService = databaseService;
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Add(
                 "User-Agent",
@@ -20,23 +23,33 @@ namespace FoodScanner.Services
             );
         }
 
-        public async Task<Product?> GetProductByBarcodeAsync(string barcode)
+        public async Task<(Product product, bool isManual)>
+            GetProductByBarcodeAsync(string barcode)
         {
             try
             {
+                // Verifici mai intai baza de date locala
+                var manualProduct = await _databaseService
+                    .GetManualProductAsync(barcode);
+
+                if (manualProduct != null)
+                    return (manualProduct.ToProduct(), true);
+
+                // Apoi cauti in Open Food Facts
                 var url = $"{BaseUrl}{barcode}.json";
                 var response = await _httpClient.GetStringAsync(url);
-                var data = JsonConvert.DeserializeObject<OpenFoodFactsResponse>(response);
+                var data = JsonConvert
+                    .DeserializeObject<OpenFoodFactsResponse>(response);
 
                 if (data?.Status != 1 || data.Product == null)
-                    return null;
+                    return (null, false);
 
-                return MapToProduct(barcode, data.Product);
+                return (MapToProduct(barcode, data.Product), false);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"API Error: {ex.Message}");
-                return null;
+                return (null, false);
             }
         }
 
