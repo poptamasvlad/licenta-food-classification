@@ -7,6 +7,7 @@ public partial class ScannerPage : ContentPage
 {
     private readonly ScannerViewModel _viewModel;
     private bool _isProcessing = false;
+    private CancellationTokenSource _animationCts;
 
     public ScannerPage(ScannerViewModel viewModel)
     {
@@ -19,6 +20,10 @@ public partial class ScannerPage : ContentPage
     {
         base.OnAppearing();
 
+        _animationCts?.Cancel();
+        _animationCts?.Dispose();
+        _animationCts = new CancellationTokenSource();
+
         await Task.Delay(300);
 
         _isProcessing = false;
@@ -27,13 +32,15 @@ public partial class ScannerPage : ContentPage
         BarcodeReader.IsDetecting = true;
 
         await RequestCameraPermissionAsync();
-        StartScanLineAnimation();
+        StartScanLineAnimation(_animationCts.Token);
     }
 
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
         BarcodeReader.IsDetecting = false;
+
+        _animationCts?.Cancel();
     }
 
     private async Task RequestCameraPermissionAsync()
@@ -106,15 +113,18 @@ public partial class ScannerPage : ContentPage
         );
     }
 
-    private void StartScanLineAnimation()
+    private void StartScanLineAnimation(CancellationToken token)
     {
         MainThread.BeginInvokeOnMainThread(async () =>
         {
-            while (true)
+            while (!token.IsCancellationRequested)
             {
                 await ScanLine.TranslateTo(0, -60, 1000);
+                if (token.IsCancellationRequested) break;
                 await ScanLine.TranslateTo(0, 60, 1000);
             }
+
+            ScanLine.TranslationY = 0;
         });
     }
 }
