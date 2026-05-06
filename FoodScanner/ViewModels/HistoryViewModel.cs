@@ -4,48 +4,119 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FoodScanner.Helpers;
 using FoodScanner.Models;
 using FoodScanner.Services;
 
-namespace FoodScanner.ViewModels
+namespace FoodScanner.ViewModels;
+
+public class HistoryViewModel : BaseViewModel
 {
-    public class HistoryViewModel : BaseViewModel
+    private readonly DatabaseService _databaseService;
+    private readonly DatabaseHelper _databaseHelper;
+    private List<ScanResult> _allScans = new();
+
+    public ObservableCollection<ScanResult> FilteredScans { get; } = new();
+
+    private string _selectedFilter = "Toate";
+    public string SelectedFilter
     {
-        private readonly DatabaseService _databaseService;
-
-        public ObservableCollection<ScanResult> ScanHistory { get; } = new();
-
-        private bool _isEmpty;
-        public bool IsEmpty
+        get => _selectedFilter;
+        set
         {
-            get => _isEmpty;
-            set => SetProperty(ref _isEmpty, value);
+            SetProperty(ref _selectedFilter, value);
+            ApplyFilter();
         }
+    }
 
-        public HistoryViewModel(DatabaseService databaseService)
+    private bool _isEmpty;
+    public bool IsEmpty
+    {
+        get => _isEmpty;
+        set => SetProperty(ref _isEmpty, value);
+    }
+
+    private int _totalScans;
+    public int TotalScans
+    {
+        get => _totalScans;
+        set => SetProperty(ref _totalScans, value);
+    }
+
+    private int _healthyPercentage;
+    public int HealthyPercentage
+    {
+        get => _healthyPercentage;
+        set => SetProperty(ref _healthyPercentage, value);
+    }
+
+    private double _averageCalories;
+    public double AverageCalories
+    {
+        get => _averageCalories;
+        set => SetProperty(ref _averageCalories, value);
+    }
+
+    public List<string> FilterOptions { get; } = new()
+    {
+        "Toate", "Sanatoase", "Moderate", "Nesanatoase"
+    };
+
+    public HistoryViewModel(
+        DatabaseService databaseService,
+        DatabaseHelper databaseHelper)
+    {
+        _databaseService = databaseService;
+        _databaseHelper = databaseHelper;
+        Title = "Istoric scanari";
+    }
+
+    public async Task LoadHistoryAsync()
+    {
+        IsBusy = true;
+
+        _allScans = await _databaseService.GetAllScansAsync();
+        TotalScans = _allScans.Count;
+        HealthyPercentage = await _databaseHelper.GetHealthyPercentageAsync();
+        AverageCalories = await _databaseHelper.GetAverageCaloriesAsync();
+
+        ApplyFilter();
+        IsBusy = false;
+    }
+
+    private void ApplyFilter()
+    {
+        FilteredScans.Clear();
+
+        var filtered = SelectedFilter switch
         {
-            _databaseService = databaseService;
-            Title = "Istoric scanări";
-        }
+            "Sanatoase" => _allScans.Where(s => s.HealthScore >= 60),
+            "Moderate" => _allScans.Where(s => s.HealthScore >= 40 && s.HealthScore < 60),
+            "Nesanatoase" => _allScans.Where(s => s.HealthScore < 40),
+            _ => _allScans.AsEnumerable()
+        };
 
-        public async Task LoadHistoryAsync()
-        {
-            IsBusy = true;
-            ScanHistory.Clear();
+        foreach (var scan in filtered)
+            FilteredScans.Add(scan);
 
-            var results = await _databaseService.GetAllScansAsync();
-            foreach (var item in results)
-                ScanHistory.Add(item);
+        IsEmpty = FilteredScans.Count == 0;
+    }
 
-            IsEmpty = ScanHistory.Count == 0;
-            IsBusy = false;
-        }
+    public async Task DeleteScanAsync(ScanResult scan)
+    {
+        await _databaseService.DeleteScanAsync(scan);
+        _allScans.Remove(scan);
+        FilteredScans.Remove(scan);
+        TotalScans = _allScans.Count;
+        IsEmpty = FilteredScans.Count == 0;
+    }
 
-        public async Task DeleteScanAsync(ScanResult scan)
-        {
-            await _databaseService.DeleteScanAsync(scan);
-            ScanHistory.Remove(scan);
-            IsEmpty = ScanHistory.Count == 0;
-        }
+    public async Task ClearAllAsync()
+    {
+        await _databaseService.ClearAllAsync();
+        _allScans.Clear();
+        FilteredScans.Clear();
+        TotalScans = 0;
+        IsEmpty = true;
     }
 }

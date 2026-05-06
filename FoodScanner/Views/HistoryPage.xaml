@@ -3,9 +3,200 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="FoodScanner.Views.HistoryPage"
-    Title="Istoric">
-    <Label
-        Text="Se incarca..."
-        HorizontalOptions="Center"
-        VerticalOptions="Center" />
+    Title="Istoric scanari"
+    BackgroundColor="#F5F5F5">
+
+    <Grid RowDefinitions="Auto, Auto, *">
+
+        <!-- Card statistici -->
+        <Frame
+            Grid.Row="0"
+            BackgroundColor="White"
+            CornerRadius="0"
+            Padding="16,12"
+            Margin="0">
+            <Grid ColumnDefinitions="*, *, *">
+
+                <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
+                    <Label
+                        Text="{Binding TotalScans}"
+                        FontSize="24"
+                        FontAttributes="Bold"
+                        TextColor="#1A1A1A"
+                        HorizontalOptions="Center" />
+                    <Label
+                        Text="Total scanari"
+                        FontSize="11"
+                        TextColor="#888888"
+                        HorizontalOptions="Center" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                    <Label
+                        Text="{Binding HealthyPercentage, StringFormat='{0}%'}"
+                        FontSize="24"
+                        FontAttributes="Bold"
+                        TextColor="#1a9641"
+                        HorizontalOptions="Center" />
+                    <Label
+                        Text="Sanatoase"
+                        FontSize="11"
+                        TextColor="#888888"
+                        HorizontalOptions="Center" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
+                    <Label
+                        Text="{Binding AverageCalories, StringFormat='{0:F0}'}"
+                        FontSize="24"
+                        FontAttributes="Bold"
+                        TextColor="#fdae61"
+                        HorizontalOptions="Center" />
+                    <Label
+                        Text="Kcal medii"
+                        FontSize="11"
+                        TextColor="#888888"
+                        HorizontalOptions="Center" />
+                </VerticalStackLayout>
+
+            </Grid>
+        </Frame>
+
+        <!-- Filtre -->
+        <ScrollView
+            Grid.Row="1"
+            Orientation="Horizontal"
+            HorizontalScrollBarVisibility="Never"
+            Padding="12,8">
+            <HorizontalStackLayout Spacing="8" BindableLayout.ItemsSource="{Binding FilterOptions}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Frame
+                            Padding="14,6"
+                            CornerRadius="20"
+                            BackgroundColor="White"
+                            BorderColor="#E0E0E0">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    CommandParameter="{Binding .}"
+                                    Tapped="OnFilterTapped" />
+                            </Frame.GestureRecognizers>
+                            <Label
+                                Text="{Binding .}"
+                                FontSize="13"
+                                TextColor="#333333" />
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <!-- Lista produse sau mesaj gol -->
+        <Grid Grid.Row="2">
+
+            <!-- Mesaj lista goala -->
+            <VerticalStackLayout
+                IsVisible="{Binding IsEmpty}"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Spacing="8">
+                <Label
+                    Text="Nicio scanare gasita"
+                    FontSize="16"
+                    TextColor="#888888"
+                    HorizontalOptions="Center" />
+                <Label
+                    Text="Scaneaza un produs pentru a-l vedea aici"
+                    FontSize="13"
+                    TextColor="#AAAAAA"
+                    HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <!-- Lista produse -->
+            <CollectionView
+                ItemsSource="{Binding FilteredScans}"
+                IsVisible="{Binding IsEmpty, Converter={StaticResource InverseBoolConverter}}"
+                Margin="12,4">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame
+                            BackgroundColor="White"
+                            CornerRadius="12"
+                            Padding="14"
+                            Margin="0,4">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    CommandParameter="{Binding .}"
+                                    Tapped="OnProductTapped" />
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto, *, Auto">
+
+                                <!-- Nutri-Score badge -->
+                                <Frame
+                                    Grid.Column="0"
+                                    BackgroundColor="{Binding NutriScoreColor}"
+                                    CornerRadius="8"
+                                    Padding="10,6"
+                                    Margin="0,0,12,0"
+                                    WidthRequest="44"
+                                    HeightRequest="44"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        Text="{Binding NutriScore}"
+                                        FontSize="18"
+                                        FontAttributes="Bold"
+                                        TextColor="White"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+                                </Frame>
+
+                                <!-- Info produs -->
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    VerticalOptions="Center"
+                                    Spacing="2">
+                                    <Label
+                                        Text="{Binding ProductName}"
+                                        FontSize="14"
+                                        FontAttributes="Bold"
+                                        TextColor="#1A1A1A"
+                                        LineBreakMode="TailTruncation" />
+                                    <Label
+                                        Text="{Binding Brand}"
+                                        FontSize="12"
+                                        TextColor="#888888" />
+                                    <Label
+                                        Text="{Binding ScannedAtFormatted}"
+                                        FontSize="11"
+                                        TextColor="#AAAAAA" />
+                                </VerticalStackLayout>
+
+                                <!-- Scor -->
+                                <VerticalStackLayout
+                                    Grid.Column="2"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Center"
+                                    Spacing="2">
+                                    <Label
+                                        Text="{Binding HealthScore}"
+                                        FontSize="20"
+                                        FontAttributes="Bold"
+                                        TextColor="#333333"
+                                        HorizontalOptions="End" />
+                                    <Label
+                                        Text="{Binding HealthLabel}"
+                                        FontSize="10"
+                                        TextColor="#888888"
+                                        HorizontalOptions="End" />
+                                </VerticalStackLayout>
+
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </Grid>
+
+    </Grid>
 </ContentPage>
