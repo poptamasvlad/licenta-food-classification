@@ -1,5 +1,6 @@
-﻿using ZXing.Net.Maui;
-using FoodScanner.ViewModels; 
+﻿using FoodScanner.ViewModels;
+using ZXing.Net.Maui;
+using ZXing.Net.Maui.Controls;
 
 namespace FoodScanner.Views;
 
@@ -8,6 +9,7 @@ public partial class ScannerPage : ContentPage
     private readonly ScannerViewModel _viewModel;
     private bool _isProcessing = false;
     private CancellationTokenSource _animationCts;
+    private CameraBarcodeReaderView _barcodeReader;
 
     public ScannerPage(ScannerViewModel viewModel)
     {
@@ -24,23 +26,48 @@ public partial class ScannerPage : ContentPage
         _animationCts?.Dispose();
         _animationCts = new CancellationTokenSource();
 
-        await Task.Delay(300);
-
         _isProcessing = false;
-        BarcodeReader.IsDetecting = false;
-        await Task.Delay(100);
-        BarcodeReader.IsDetecting = true;
 
-        await RequestCameraPermissionAsync();
+        await Task.Delay(300);
+        RebuildCamera();
         StartScanLineAnimation(_animationCts.Token);
+        await RequestCameraPermissionAsync();
     }
 
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
-        BarcodeReader.IsDetecting = false;
-
         _animationCts?.Cancel();
+
+        if (_barcodeReader != null)
+            _barcodeReader.IsDetecting = false;
+    }
+
+    private void RebuildCamera()
+    {
+        // Găsești containerul camerei din XAML — un Grid numit CameraContainer
+        if (_barcodeReader != null)
+        {
+            _barcodeReader.BarcodesDetected -= OnBarcodesDetected;
+            CameraContainer.Children.Remove(_barcodeReader);
+        }
+
+        _barcodeReader = new CameraBarcodeReaderView
+        {
+            IsDetecting = true,
+            Options = new BarcodeReaderOptions
+            {
+                Formats = BarcodeFormat.Ean8 |
+                          BarcodeFormat.Ean13 |
+                          BarcodeFormat.UpcA |
+                          BarcodeFormat.UpcE,
+                AutoRotate = true,
+                Multiple = false
+            }
+        };
+
+        _barcodeReader.BarcodesDetected += OnBarcodesDetected;
+        CameraContainer.Children.Insert(0, _barcodeReader);
     }
 
     private async Task RequestCameraPermissionAsync()
@@ -63,7 +90,8 @@ public partial class ScannerPage : ContentPage
             return;
         }
 
-        BarcodeReader.IsDetecting = false;
+        if (_barcodeReader != null)
+            _barcodeReader.IsDetecting = false;
 
         await MainThread.InvokeOnMainThreadAsync(async () =>
         {
@@ -84,7 +112,9 @@ public partial class ScannerPage : ContentPage
                 await DisplayAlert("Produs negasit",
                     "Codul de bare nu a fost gasit in baza de date.",
                     "OK");
-                BarcodeReader.IsDetecting = true;
+
+                if (_barcodeReader != null)
+                    _barcodeReader.IsDetecting = true;
                 _isProcessing = false;
             }
         });
@@ -93,7 +123,10 @@ public partial class ScannerPage : ContentPage
     private void OnTorchClicked(object sender, EventArgs e)
     {
         _viewModel.ToggleTorch();
-        BarcodeReader.IsTorchOn = _viewModel.IsTorchOn;
+
+        if (_barcodeReader != null)
+            _barcodeReader.IsTorchOn = _viewModel.IsTorchOn;
+
         TorchButton.Text = _viewModel.IsTorchOn ? "Torta ON" : "Torta OFF";
         TorchButton.BackgroundColor = _viewModel.IsTorchOn
             ? Color.FromArgb("#FFD700")
@@ -123,7 +156,6 @@ public partial class ScannerPage : ContentPage
                 if (token.IsCancellationRequested) break;
                 await ScanLine.TranslateTo(0, 60, 1000);
             }
-
             ScanLine.TranslationY = 0;
         });
     }
