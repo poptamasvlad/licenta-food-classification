@@ -12,6 +12,8 @@ namespace FoodScanner.Services
         public ClassificationResult Classify(Product product)
         {
             var result = new ClassificationResult();
+            if (product.NutriScore != null)
+                product.NutriScore = product.NutriScore.Trim().ToUpper();
             int totalScore = 0;
 
             totalScore += ScoreFromNutriScore(product.NutriScore);

@@ -48,7 +48,7 @@ namespace FoodScanner.Services
                 Name = p.ProductName ?? "Produs necunoscut",
                 Brand = p.Brands ?? "Brand necunoscut",
                 ImageUrl = p.ImageUrl,
-                NutriScore = p.NutriscoreGrade?.ToUpper() ?? "?",
+                NutriScore = p.NutriscoreGrade?.Trim().ToUpper() ?? "?",
                 Category = p.Categories,
                 Nutrition = new NutritionalInfo
                 {

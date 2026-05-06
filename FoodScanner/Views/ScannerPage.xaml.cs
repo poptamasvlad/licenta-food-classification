@@ -18,7 +18,12 @@ public partial class ScannerPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+
+        await Task.Delay(300);
+
         _isProcessing = false;
+        BarcodeReader.IsDetecting = false;
+        await Task.Delay(100);
         BarcodeReader.IsDetecting = true;
 
         await RequestCameraPermissionAsync();
