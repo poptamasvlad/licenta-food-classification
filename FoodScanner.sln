@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodScanner", "FoodScanner\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodScanner.ML.Trainer", "FoodScanner.ML.Trainer\FoodScanner.ML.Trainer.csproj", "{DF737623-D892-4729-80EE-B637E017C8E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodScanner.Research", "FoodScanner.Research\FoodScanner.Research.csproj", "{A82756FE-9154-45E7-96B1-DB7B5EDD2FBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{DF737623-D892-4729-80EE-B637E017C8E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF737623-D892-4729-80EE-B637E017C8E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF737623-D892-4729-80EE-B637E017C8E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A82756FE-9154-45E7-96B1-DB7B5EDD2FBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A82756FE-9154-45E7-96B1-DB7B5EDD2FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A82756FE-9154-45E7-96B1-DB7B5EDD2FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A82756FE-9154-45E7-96B1-DB7B5EDD2FBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,77 @@
+Produs,Brand,NutriScore_Oficial,Scor_Oficial,Scor_ML,Eticheta_ML,Diferenta,Concordanta,Categorie
+Lapte semidegresat 1.5%,Napolact,B,70,73,Sanatos,3,DA,Sanatos
+Lapte integral 3.5%,Zuzu,C,50,57,Moderat,7,DA,Moderat
+Iaurt natural 3%,Danone,B,70,79,Sanatos,9,DA,Sanatos
+Smantana 20%,Napolact,D,30,32,Nesanatos,2,DA,Nesanatos
+Branza telemea,Delaco,C,50,22,Nesanatos,28,NU,Moderat
+Cascaval,Covalact,D,30,32,Nesanatos,2,DA,Nesanatos
+Unt 80%,Napolact,E,15,18,Nesanatos,3,DA,Nesanatos
+Margarina,Rama,D,30,31,Nesanatos,1,DA,Nesanatos
+Piept de pui,Transavia,A,85,90,Foarte sanatos,5,DA,Sanatos
+Sunca presata,Campofrio,C,50,33,Nesanatos,17,NU,Moderat
+Salam de vara,Angst,E,15,15,Nesanatos,0,DA,Nesanatos
+Parizer,Aldis,D,30,28,Nesanatos,2,DA,Nesanatos
+Crenvursti,Campofrio,E,15,16,Nesanatos,1,DA,Nesanatos
+Bacon afumat,Smithfield,E,15,15,Nesanatos,0,DA,Nesanatos
+Paine alba,Vel Pitar,C,50,52,Moderat,2,DA,Moderat
+Paine integrala,Vel Pitar,B,70,85,Foarte sanatos,15,DA,Sanatos
+Cornuri,Dobrogea,D,30,33,Nesanatos,3,DA,Nesanatos
+Covrigi,Boromir,D,30,26,Nesanatos,4,DA,Nesanatos
+Biscuiti digestivi,Leibniz,D,30,19,Nesanatos,11,DA,Nesanatos
+Biscuiti cu ciocolata,Oreo,E,15,15,Nesanatos,0,DA,Nesanatos
+Croissant cu crema,Chipita,E,15,14,Nesanatos,1,DA,Nesanatos
+Mar,Diverse,A,85,81,Foarte sanatos,4,DA,Sanatos
+Banana,Diverse,A,85,79,Sanatos,6,DA,Sanatos
+Portocala,Diverse,A,85,75,Sanatos,10,DA,Sanatos
+Morcov,Diverse,A,85,87,Foarte sanatos,2,DA,Sanatos
+Brocoli,Diverse,A,85,90,Foarte sanatos,5,DA,Sanatos
+Spanac,Diverse,A,85,89,Foarte sanatos,4,DA,Sanatos
+Cartofi,Diverse,B,70,87,Foarte sanatos,17,DA,Sanatos
+Rosii,Diverse,A,85,89,Foarte sanatos,4,DA,Sanatos
+Suc portocale,Cappy,C,50,49,Moderat,1,DA,Moderat
+Nectar mere,Prigat,C,50,26,Nesanatos,24,NU,Moderat
+Apa minerala,Dorna,A,85,77,Sanatos,8,DA,Sanatos
+Cola,Coca-Cola,E,15,21,Nesanatos,6,DA,Nesanatos
+Cola zero,Coca-Cola,B,70,79,Sanatos,9,DA,Sanatos
+Energizant,RedBull,E,15,22,Nesanatos,7,DA,Nesanatos
+Ceai verde,Lipton,A,85,70,Sanatos,15,DA,Sanatos
+Lapte ciocolata,Zuzu,D,30,46,Moderat,16,NU,Nesanatos
+Musli cu fructe,Nestle,C,50,58,Moderat,8,DA,Moderat
+Fulgi ovaz,Quaker,A,85,90,Foarte sanatos,5,DA,Sanatos
+Cornflakes,Kelloggs,C,50,42,Moderat,8,DA,Moderat
+Ciocolata lapte,Milka,E,15,15,Nesanatos,0,DA,Nesanatos
+Ciocolata neagra 70%,Kandia,C,50,16,Nesanatos,34,NU,Moderat
+Inghetata vanilie,Algida,D,30,33,Nesanatos,3,DA,Nesanatos
+Chipsuri,Lays,E,15,32,Nesanatos,17,DA,Nesanatos
+Popcorn caramel,Viva,E,15,16,Nesanatos,1,DA,Nesanatos
+Alune,Planters,C,50,81,Foarte sanatos,31,NU,Moderat
+Migdale,Diverse,B,70,86,Foarte sanatos,16,DA,Sanatos
+Oua,Diverse,B,70,87,Foarte sanatos,17,DA,Sanatos
+Ton in apa,Rio Mare,A,85,90,Foarte sanatos,5,DA,Sanatos
+Sardine in ulei,Scandia,B,70,76,Sanatos,6,DA,Sanatos
+Fasole boabe,Bonduelle,A,85,87,Foarte sanatos,2,DA,Sanatos
+Naut,Bonduelle,A,85,88,Foarte sanatos,3,DA,Sanatos
+Linte,Diverse,A,85,90,Foarte sanatos,5,DA,Sanatos
+Orez alb,Uncle Bens,C,50,70,Sanatos,20,NU,Moderat
+Paste fainoase,Barilla,B,70,76,Sanatos,6,DA,Sanatos
+Quinoa,Diverse,A,85,89,Foarte sanatos,4,DA,Sanatos
+Ketchup,Heinz,D,30,32,Nesanatos,2,DA,Nesanatos
+Maioneza,Hellmanns,E,15,29,Nesanatos,14,DA,Nesanatos
+Mustar,Fuchs,C,50,42,Moderat,8,DA,Moderat
+Ulei floarea soarelui,Argus,D,30,70,Sanatos,40,NU,Nesanatos
+Ulei masline,Monini,C,50,69,Sanatos,19,NU,Moderat
+Otet,Diverse,A,85,72,Sanatos,13,DA,Sanatos
+Sare,Diverse,E,15,17,Nesanatos,2,DA,Nesanatos
+Zahar,Diverse,E,15,15,Nesanatos,0,DA,Nesanatos
+Miere,Diverse,C,50,18,Nesanatos,32,NU,Moderat
+Pizza surgelata,Dr.Oetker,D,30,29,Nesanatos,1,DA,Nesanatos
+Lasagna surgelata,Findus,C,50,58,Moderat,8,DA,Moderat
+Carne tocata surgelata,Transavia,C,50,62,Sanatos,12,NU,Moderat
+Cartofi prajiti surgelati,McCain,C,50,79,Sanatos,29,NU,Moderat
+Spanac surgelat,Bonduelle,A,85,91,Foarte sanatos,6,DA,Sanatos
+Mazare surgelata,Bonduelle,A,85,90,Foarte sanatos,5,DA,Sanatos
+Supa instant,Maggi,E,15,14,Nesanatos,1,DA,Nesanatos
+Taitei instant,Nissin,E,15,14,Nesanatos,1,DA,Nesanatos
+Sos rosii,Barilla,B,70,73,Sanatos,3,DA,Sanatos
+Crema ciuperci,Knorr,E,15,14,Nesanatos,1,DA,Nesanatos
+Budinca,Dr.Oetker,D,30,53,Moderat,23,NU,Nesanatos
