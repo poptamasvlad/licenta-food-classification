@@ -5,6 +5,8 @@ namespace FoodScanner.ViewModels;
 
 public class ResultViewModel : BaseViewModel
 {
+
+
     private Product _product;
     public Product Product
     {
@@ -54,13 +56,21 @@ public class ResultViewModel : BaseViewModel
         set => SetProperty(ref _hasPositives, value);
     }
 
+    private readonly NutritionClassifier _classifier;
+
+    // Adaugi NutritionClassifier ca parametru
+    public ResultViewModel(NutritionClassifier classifier)
+    {
+        _classifier = classifier;
+    }
+
     public void LoadProduct(Product product)
     {
         Product = product;
         Title = product.Name;
 
-        var classifier = new NutritionClassifier();
-        Classification = classifier.Classify(product);
+        // Folosesti _classifier injectat, nu new NutritionClassifier()
+        Classification = _classifier.Classify(product);
 
         product.HealthScore = Classification.Score;
         product.HealthLabel = Classification.Label;

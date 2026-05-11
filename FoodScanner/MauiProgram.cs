@@ -21,9 +21,10 @@ namespace FoodScanner
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<MLPredictionService>();
+            builder.Services.AddSingleton<NutritionClassifier>();
             builder.Services.AddSingleton<FoodApiService>();
             builder.Services.AddSingleton<DatabaseService>();
-            builder.Services.AddSingleton<NutritionClassifier>();
             builder.Services.AddSingleton<DatabaseHelper>();
 
             builder.Services.AddTransient<ScannerViewModel>();

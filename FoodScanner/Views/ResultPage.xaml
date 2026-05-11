@@ -44,23 +44,44 @@
 
                         <!-- Scorul nostru ML -->
                         <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
+
                             <Label
                                 Text="Scor sanatate"
                                 FontSize="12"
                                 TextColor="#888888"
                                 HorizontalOptions="Center" />
+
                             <Label
                                 Text="{Binding Classification.Score}"
                                 FontSize="48"
                                 FontAttributes="Bold"
                                 TextColor="{Binding ScoreColor}"
                                 HorizontalOptions="Center" />
+
                             <Label
                                 Text="{Binding Classification.Label}"
                                 FontSize="14"
                                 FontAttributes="Bold"
                                 TextColor="{Binding ScoreColor}"
                                 HorizontalOptions="Center" />
+
+                            <!-- Badge metoda scoring -->
+                            <Frame
+                                BackgroundColor="#EEF4FF"
+                                CornerRadius="8"
+                                Padding="8,4"
+                                HorizontalOptions="Center"
+                                Margin="0,4,0,0">
+
+                                <Label
+                                    Text="{Binding Classification.ScoringMethod,
+                                           StringFormat='Scor calculat prin: {0}'}"
+                                    FontSize="11"
+                                    TextColor="#4466AA"
+                                    HorizontalOptions="Center" />
+
+                            </Frame>
+
                         </VerticalStackLayout>
 
                         <!-- Nutri-Score oficial -->
@@ -70,17 +91,20 @@
                                 FontSize="12"
                                 TextColor="#888888"
                                 HorizontalOptions="Center" />
+
                             <Frame
                                 BackgroundColor="{Binding NutriScoreColor}"
                                 CornerRadius="12"
                                 Padding="16,8"
                                 Margin="0,4">
+
                                 <Label
                                     Text="{Binding Product.NutriScore}"
                                     FontSize="32"
                                     FontAttributes="Bold"
                                     TextColor="White"
                                     HorizontalOptions="Center" />
+
                             </Frame>
                         </VerticalStackLayout>
 
@@ -91,11 +115,13 @@
                         BackgroundColor="#F8F8F8"
                         CornerRadius="8"
                         Padding="12">
+
                         <Label
                             Text="{Binding Classification.Summary}"
                             FontSize="13"
                             TextColor="#555555"
                             HorizontalTextAlignment="Center" />
+
                     </Frame>
 
                 </VerticalStackLayout>
@@ -162,15 +188,15 @@
                 CornerRadius="16"
                 Padding="20"
                 IsVisible="{Binding HasWarnings}">
+
                 <VerticalStackLayout Spacing="8">
+
                     <Label
                         Text="Atentionari"
                         FontSize="16"
                         FontAttributes="Bold"
                         TextColor="#d7191c" />
-                    <BindableLayout.ItemsSource>
-                        <Binding Path="Classification.Warnings" />
-                    </BindableLayout.ItemsSource>
+
                     <VerticalStackLayout BindableLayout.ItemsSource="{Binding Classification.Warnings}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
@@ -182,6 +208,7 @@
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </VerticalStackLayout>
+
                 </VerticalStackLayout>
             </Frame>
 
@@ -191,12 +218,15 @@
                 CornerRadius="16"
                 Padding="20"
                 IsVisible="{Binding HasPositives}">
+
                 <VerticalStackLayout Spacing="8">
+
                     <Label
                         Text="Puncte pozitive"
                         FontSize="16"
                         FontAttributes="Bold"
                         TextColor="#1a9641" />
+
                     <VerticalStackLayout BindableLayout.ItemsSource="{Binding Classification.Positives}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
@@ -208,6 +238,7 @@
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </VerticalStackLayout>
+
                 </VerticalStackLayout>
             </Frame>
 

@@ -12,6 +12,7 @@ namespace FoodScanner.Models
         public string Label { get; set; }
         public string Color { get; set; }
         public string Emoji { get; set; }
+        public string ScoringMethod { get; set; }
         public List<string> Warnings { get; set; } = new();
         public List<string> Positives { get; set; } = new();
         public string Summary { get; set; }

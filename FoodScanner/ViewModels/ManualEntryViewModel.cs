@@ -74,7 +74,7 @@ public class ManualEntryViewModel : BaseViewModel
     }
 
     public ManualEntryViewModel(
-        DatabaseService databaseService,
+       DatabaseService databaseService,
         NutritionClassifier classifier)
     {
         _databaseService = databaseService;
