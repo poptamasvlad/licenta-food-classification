@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="FoodScanner.Views.StatsPage"
+    Title="Statisticile tale"
+    BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="12" Padding="16">
+
+            <!-- Card sumar -->
+            <Frame BackgroundColor="White" CornerRadius="16" Padding="20">
+                <VerticalStackLayout Spacing="16">
+
+                    <Label
+                        Text="Rezumat scanari"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        TextColor="#1A1A1A" />
+
+                    <Grid ColumnDefinitions="*, *" RowDefinitions="Auto, Auto" ColumnSpacing="12" RowSpacing="12">
+
+                        <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="#F0FFF4" CornerRadius="12" Padding="14">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding TotalScans}" FontSize="28" FontAttributes="Bold" TextColor="#1a9641" HorizontalOptions="Center" />
+                                <Label Text="Total produse" FontSize="12" TextColor="#888" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <Frame Grid.Row="0" Grid.Column="1" BackgroundColor="#FFF8F0" CornerRadius="12" Padding="14">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding HealthyPercentage, StringFormat='{0}%'}" FontSize="28" FontAttributes="Bold" TextColor="#fdae61" HorizontalOptions="Center" />
+                                <Label Text="Sanatoase" FontSize="12" TextColor="#888" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <Frame Grid.Row="1" Grid.Column="0" BackgroundColor="#F0F4FF" CornerRadius="12" Padding="14">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding AverageScore, StringFormat='{0:F0}'}" FontSize="28" FontAttributes="Bold" TextColor="#4466AA" HorizontalOptions="Center" />
+                                <Label Text="Scor mediu" FontSize="12" TextColor="#888" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <Frame Grid.Row="1" Grid.Column="1" BackgroundColor="#FFF0F0" CornerRadius="12" Padding="14">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding AverageCalories, StringFormat='{0:F0} kcal'}" FontSize="28" FontAttributes="Bold" TextColor="#d7191c" HorizontalOptions="Center" />
+                                <Label Text="Calorii medii" FontSize="12" TextColor="#888" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Frame>
+
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Distributie Nutri-Score -->
+            <Frame BackgroundColor="White" CornerRadius="16" Padding="20">
+                <VerticalStackLayout Spacing="12">
+
+                    <Label
+                        Text="Distributie Nutri-Score"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        TextColor="#1A1A1A" />
+
+                    <VerticalStackLayout
+                        BindableLayout.ItemsSource="{Binding NutriScoreDistribution}"
+                        Spacing="8">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="30, *, Auto">
+
+                                    <Label
+                                        Grid.Column="0"
+                                        Text="{Binding Grade}"
+                                        FontSize="16"
+                                        FontAttributes="Bold"
+                                        TextColor="{Binding Color}"
+                                        VerticalOptions="Center" />
+
+                                    <Frame
+                                        Grid.Column="1"
+                                        BackgroundColor="#F0F0F0"
+                                        CornerRadius="4"
+                                        Padding="0"
+                                        HeightRequest="24"
+                                        VerticalOptions="Center"
+                                        Margin="8,0">
+                                        <Frame
+                                            BackgroundColor="{Binding Color}"
+                                            CornerRadius="4"
+                                            Padding="0"
+                                            HeightRequest="24"
+                                            HorizontalOptions="Start"
+                                            WidthRequest="{Binding BarWidth}" />
+                                    </Frame>
+
+                                    <Label
+                                        Grid.Column="2"
+                                        Text="{Binding Count}"
+                                        FontSize="14"
+                                        TextColor="#555"
+                                        VerticalOptions="Center" />
+
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Ultimele 5 scanari -->
+            <Frame BackgroundColor="White" CornerRadius="16" Padding="20">
+                <VerticalStackLayout Spacing="12">
+
+                    <Label
+                        Text="Ultimele scanari"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        TextColor="#1A1A1A" />
+
+                    <VerticalStackLayout
+                        BindableLayout.ItemsSource="{Binding RecentScans}"
+                        Spacing="8">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="Auto, *, Auto">
+
+                                    <Frame
+                                        Grid.Column="0"
+                                        BackgroundColor="{Binding NutriScoreColor}"
+                                        CornerRadius="8"
+                                        Padding="8,4"
+                                        Margin="0,0,10,0">
+                                        <Label
+                                            Text="{Binding NutriScore}"
+                                            FontSize="14"
+                                            FontAttributes="Bold"
+                                            TextColor="White" />
+                                    </Frame>
+
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                        <Label Text="{Binding ProductName}" FontSize="13" FontAttributes="Bold" TextColor="#1A1A1A" LineBreakMode="TailTruncation" />
+                                        <Label Text="{Binding ScannedAtFormatted}" FontSize="11" TextColor="#AAAAAA" />
+                                    </VerticalStackLayout>
+
+                                    <Label
+                                        Grid.Column="2"
+                                        Text="{Binding HealthScore}"
+                                        FontSize="18"
+                                        FontAttributes="Bold"
+                                        TextColor="#333"
+                                        VerticalOptions="Center" />
+
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Mesaj motivational -->
+            <Frame
+                BackgroundColor="{Binding MotivationColor}"
+                CornerRadius="16"
+                Padding="20">
+                <VerticalStackLayout Spacing="4">
+                    <Label
+                        Text="{Binding MotivationTitle}"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="White"
+                        HorizontalOptions="Center" />
+                    <Label
+                        Text="{Binding MotivationMessage}"
+                        FontSize="13"
+                        TextColor="White"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -175,6 +175,16 @@ public partial class ScannerPage : ContentPage
         );
     }
 
+    private async void OnStatsClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(
+            new StatsPage(
+                Handler.MauiContext.Services
+                    .GetService<StatsViewModel>()
+            )
+        );
+    }
+
     private void StartScanLineAnimation(CancellationToken token)
     {
         MainThread.BeginInvokeOnMainThread(async () =>
